@@ -13,9 +13,16 @@ model users {
   name             String
   email            String   @unique
   password         String 
-  role             String
+  role Role @default(CLIENT)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt
 
   @@map("users")
+}
+//That is a list of a role that we will use for now
+//we can extend this depend of your project.
+enum Role {
+  CLIENT
+  ADMIN
+  ROOT
 }

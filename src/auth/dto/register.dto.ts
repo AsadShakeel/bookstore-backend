@@ -5,7 +5,14 @@ import {
   IsEmail,
   MinLength,
   MaxLength,
+  IsEnum,
 } from 'class-validator';
+
+export enum Role {
+  CLIENT = 'CLIENT',
+  ADMIN = 'ADMIN',
+  ROOT = 'ROOT',
+}
 
 export class RegisterDto {
   @ApiProperty()
@@ -27,6 +34,6 @@ export class RegisterDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
-  role: string;
+  @IsEnum(Role)
+  role: Role;
 }
