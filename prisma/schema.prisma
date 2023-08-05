@@ -6,23 +6,62 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
-//Here is a declaration of user Table and it properties 
-//configurations. 
-model users {
-  id        Int       @id @default(autoincrement())
-  name             String
-  email            String   @unique
-  password         String 
-  role Role @default(CLIENT)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now()) @updatedAt
+
+//Here is a declaration of user Table and it properties
+//configurations.
+model User {
+  id        String      @id @default(cuid())
+  name      String
+  email     String      @unique
+  password  String
+  role      Role        @default(CLIENT)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now()) @updatedAt
+  points    Int
+  UserOrder UserOrder[]
 
   @@map("users")
 }
+
 //That is a list of a role that we will use for now
 //we can extend this depend of your project.
 enum Role {
   CLIENT
   ADMIN
   ROOT
+}
+
+model Book {
+  id         String      @id @default(cuid())
+  title      String
+  writer     String
+  coverImage String  @default("https://images-na.ssl-images-amazon.com/images/I/51Ga5GuElyL._AC_SX184_.jpg")
+  point      Int // Price in points
+  tags       String[] // Array of tags for the book
+  BookOrder  BookOrder[]
+
+  @@map("books")
+}
+
+model UserOrder {
+  id           String      @id @default(cuid())
+  user_id      String
+  user         User        @relation(fields: [user_id], references: [id])
+  total_points Int
+  order_date   DateTime    @default(now())
+  status       String      @default("Pending")
+  books        BookOrder[]
+
+  @@map("user_orders")
+}
+
+model BookOrder {
+  id            String    @id @default(cuid())
+  user_order_id String
+  user_order    UserOrder @relation(fields: [user_order_id], references: [id])
+  book_id       String
+  book          Book      @relation(fields: [book_id], references: [id])
+  quantity      Int
+
+  @@map("book_orders")
 }
