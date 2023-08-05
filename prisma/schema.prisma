@@ -1,0 +1,30 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+//Here is a declaration of user Table and it properties 
+//configurations. 
+model User {
+  id        Int       @id @default(autoincrement())
+  login     String
+  password  String
+  name      String
+  surname   String?
+  role Role @default(CLIENT)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+
+  @@map("user")
+}
+//That is a list of a role that we will use for this tutorial
+//we can extend this depend of your project.
+enum Role {
+  CLIENT
+  ADMIN
+  ROOT
+}
