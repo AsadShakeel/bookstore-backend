@@ -1,8 +1,16 @@
-import { Body, Controller, Delete, Get, Param, Post, UseFilters } from "@nestjs/common";
-import { OrderService } from "./order.service";
-import { CreateOrderDto } from "./dto/create-order.dto";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
-import { HttpExceptionFilter } from "../filters/http-exception.filter";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseFilters,
+} from '@nestjs/common';
+import { OrderService } from './order.service';
+import { CreateOrderDto } from './dto/create-order.dto';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { HttpExceptionFilter } from '../filters/http-exception.filter';
 
 @Controller('order')
 @ApiTags('Order')
@@ -14,7 +22,7 @@ export class OrderController {
   @ApiOperation({ summary: 'Place an order' })
   create(@Body() createOrderDto: CreateOrderDto) {
     // get userId from auth token
-    let userId = createOrderDto.userId; // meanwhile
+    const userId = createOrderDto.userId; // meanwhile
     console.log(createOrderDto);
     return this.orderService.placeOrder(userId, createOrderDto);
   }
@@ -23,7 +31,7 @@ export class OrderController {
   @ApiOperation({ summary: 'Get all the orders of the current logged in user' })
   findAll() {
     // get userId from auth token
-    let userId = 'clkz72f8e00001y9c4ymirkhb'; // meanwhile
+    const userId = 'clkz72f8e00001y9c4ymirkhb'; // meanwhile
     return this.orderService.findAllUserOrders(userId);
   }
 

@@ -1,6 +1,14 @@
-import { ArrayMinSize, IsArray, IsNotEmpty, IsNumber, IsString, Min, ValidateNested } from "class-validator";
-import { Type } from "class-transformer";
-import { ApiProperty } from "@nestjs/swagger";
+import {
+  ArrayMinSize,
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  Min,
+  ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
 
 class OrderBookDto {
   @ApiProperty()
@@ -11,7 +19,6 @@ class OrderBookDto {
   @IsNumber()
   @Min(1)
   quantity: number;
-
 }
 
 export class CreateOrderDto {

@@ -34,11 +34,25 @@ services:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
       - pgdata:/var/lib/postgresql/data
-      
-      
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.12-management
+    networks:
+      - webnet
+    ports:
+      - ${RABBITMQ_PORT}:${RABBITMQ_PORT}
+      - ${RABBITMQ_CONSOLE_PORT}:${RABBITMQ_CONSOLE_PORT}
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
 networks:
   webnet:
 volumes:
-  red_data: {}
+  red_data: { }
   pgdata:
   pgadmin:
+  rabbitmq_data:
