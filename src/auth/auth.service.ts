@@ -3,13 +3,13 @@ import { JwtService } from "@nestjs/jwt";
 import { compare, hash } from "bcrypt";
 import { PrismaService } from "src/prisma/prisma.service";
 import { RegisterDto } from "./dto/register.dto";
+import { LoginDto } from "./dto/login.dto";
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly jwtService: JwtService,
-    private readonly jwtTokenService: JwtService
+    private readonly jwtService: JwtService
   ) {
   }
 
@@ -52,7 +52,9 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any) {
+  async login(data: LoginDto, user: any) {
+
+
     const payload = {
       email: user.email,
       name: user.name,
@@ -61,7 +63,7 @@ export class AuthService {
     };
 
     return {
-      access_token: this.jwtTokenService.sign(payload)
+      access_token: this.jwtService.sign(payload)
     };
   }
 }

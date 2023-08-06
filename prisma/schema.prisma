@@ -58,7 +58,7 @@ model UserOrder {
 model BookOrder {
   id            String    @id @default(cuid())
   user_order_id String
-  user_order    UserOrder @relation(fields: [user_order_id], references: [id])
+  user_order    UserOrder @relation(fields: [user_order_id], references: [id], onDelete: Cascade)
   book_id       String
   book          Book      @relation(fields: [book_id], references: [id])
   quantity      Int

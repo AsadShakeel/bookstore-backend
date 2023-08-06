@@ -1,7 +1,7 @@
-import { Injectable } from "@nestjs/common";
-import { CreateBookDto } from "./dto/create-book.dto";
-import { UpdateBookDto } from "./dto/update-book.dto";
-import { PrismaService } from "../prisma/prisma.service";
+import { Injectable } from '@nestjs/common';
+import { CreateBookDto } from './dto/create-book.dto';
+import { UpdateBookDto } from './dto/update-book.dto';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class BookService {
@@ -26,5 +26,4 @@ export class BookService {
   remove(id: string) {
     return this.prisma.book.delete({ where: { id } });
   }
-
 }
